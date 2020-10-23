@@ -32,9 +32,11 @@ export class SourceGroup<T = any> {
         // Find all the operators (which is not in the sources list) between input observable and last draw observable.
         while (observable !== this.sources[this.sources.length - 2]) {
 
+            // tslint:disable-next-line: deprecation
             if (!!observable.operator) {
                 createElementAndAppend('div', operatorsDiv, {
                     class: 'rxjs-operator',
+                    // tslint:disable-next-line: deprecation
                     innerHTML: observable.operator.constructor.name
                 });
             }
@@ -44,6 +46,7 @@ export class SourceGroup<T = any> {
                     innerHTML: observable.constructor.name
                 });
             }
+            // tslint:disable-next-line: deprecation
             observable = observable.source;
         }
     }

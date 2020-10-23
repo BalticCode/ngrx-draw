@@ -3,7 +3,9 @@ import { ElementOptions } from '../interfaces/element-options';
 
 export const findRootObservable = <T = any>(observable: Observable<T>): Observable<T> => {
     let rootObservable = observable;
+    // tslint:disable-next-line: deprecation
     while (rootObservable.source) {
+        // tslint:disable-next-line: deprecation
         rootObservable = rootObservable.source;
     }
     return rootObservable;

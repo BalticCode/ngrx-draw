@@ -51,6 +51,7 @@ export const draw = <T = any>(label?: string, selector?: string): OperatorFuncti
             }
         );
     });
+    // tslint:disable-next-line: deprecation
     drawObs.source = source;
     return drawObs;
 };
