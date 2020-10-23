@@ -17,10 +17,10 @@
     ],
     "paths": {
       "@balticcode/ngrx-draw": [
-        "projects/ngrx-draw/src/public_api.ts"
+        "projects/ngrx-draw/src/public-api.ts"
       ],
       "@balticcode/ngrx-draw-core": [
-        "projects/ngrx-draw-core/src/public_api.ts"
+        "projects/ngrx-draw-core/src/public-api.ts"
       ]
     }
   }
