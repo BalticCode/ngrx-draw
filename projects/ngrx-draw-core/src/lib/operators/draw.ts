@@ -4,7 +4,7 @@ import { RxjsDraw } from '../classes/rxjs-draw';
 import { SourceGroup } from '../classes/source-group';
 import { findRootObservable } from '../utils/utils';
 
-export const draw = <T = any>(label: string, selector?: string): OperatorFunction<T, T> => (source: Observable<T>): Observable<T> => {
+export const draw = <T = any>(label?: string, selector?: string): OperatorFunction<T, T> => (source: Observable<T>): Observable<T> => {
 
     // Grouping diagrams by root observable
     let sourceGroup = RxjsDraw.getInstance().findGroup(source, selector);

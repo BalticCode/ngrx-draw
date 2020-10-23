@@ -20,7 +20,7 @@ export class SourceGroup<T = any> {
         this.sources.push(source);
     }
 
-    public addSourceBox(label: string, selector?: string): SourceBox {
+    public addSourceBox(label?: string, selector?: string): SourceBox {
         const sourceBox = new SourceBox(this.groupDiv, label, selector);
         this.sourceBoxes.push(sourceBox);
         return sourceBox;

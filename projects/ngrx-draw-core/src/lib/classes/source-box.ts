@@ -12,18 +12,20 @@ export class SourceBox {
 
     constructor(
         private readonly sourceGroupDiv: HTMLDivElement,
-        private readonly name: string,
+        private readonly label?: string,
         private readonly selector?: string
     ) {
         this.boxDiv = createElementAndAppend('div', this.sourceGroupDiv, {
-            id: this.name,
+            id: this.label,
             class: 'rxjs-source'
         });
         // Create title
-        createElementAndAppend('div', this.boxDiv, {
-            class: 'rxjs-name',
-            innerHTML: this.name
-        });
+        if (!!this.label) {
+            createElementAndAppend('div', this.boxDiv, {
+                class: 'rxjs-name',
+                innerHTML: this.label
+            });
+        }
 
         // Create timeline
         this.timelineBox = new TimelineBox(this.boxDiv, this.selector);
