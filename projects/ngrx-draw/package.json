@@ -1,0 +1,33 @@
+{
+  "name": "@balticcode/ngrx-draw",
+  "version": "0.0.1",
+  "description": "Library for drawing marble diagrams of RxJS Observables + Angular integration",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BalticCode/ngrx-draw.git"
+  },
+  "keywords": [
+    "angular",
+    "rxjs",
+    "draw",
+    "marbles",
+    "observables",
+    "reactive"
+  ],
+  "author": "BalticCode (b4lt1c.c0d3@gmail.com)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/BalticCode/ngrx-draw/issues"
+  },
+  "homepage": "https://github.com/BalticCode/ngrx-draw#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=9.0.0",
+    "@angular/core": ">=9.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
+}

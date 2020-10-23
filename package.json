@@ -1,12 +1,21 @@
 {
   "name": "ngrx-draw",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Library for drawing marble diagrams of RxJS Observables + Angular integration",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "test": "ng test --watch=false --browsers=ChromeHeadlessCustom",
+    "contributors:add": "all-contributors add",
+    "contributors:check": "all-contributors check",
+    "contributors:generate": "all-contributors generate",
+    "build:prod": "npm run build:lib && npm run copy&& npm run copy:core && npm run build:docs",
+    "build:lib": "ng build ngrx-draw --prod && ng build ngrx-draw-core --prod",
+    "copy": "copyfiles ./LICENSE ./README.md ./dist/ngrx-draw",
+    "copy:core": "copyfiles ./LICENSE ./README.md ./dist/ngrx-draw-draw",
+    "build:docs": "ng build --prod --output-path docs --base-href /ngrx-draw/"
   },
   "private": true,
   "dependencies": {
@@ -23,12 +32,15 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1001.7",
     "@angular/cli": "~10.1.7",
     "@angular/compiler-cli": "~10.1.6",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "all-contributors-cli": "^6.19.0",
     "codelyzer": "^6.0.0",
+    "copyfiles": "^2.4.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
@@ -36,7 +48,9 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^10.1.0",
     "protractor": "~7.0.0",
+    "puppeteer": "^5.3.1",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.2"
