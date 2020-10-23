@@ -16,7 +16,6 @@ export class TimelineBox {
     private readonly timer$: Observable<number>;
     private readonly scroll$: Observable<any>;
 
-    private readonly subscriptions: Subscription = new Subscription();
     private readonly syncScrollSubsciption: Subscription;
     private autoScrollSubscription: Subscription;
     private timerSubscription: Subscription;
@@ -54,48 +53,50 @@ export class TimelineBox {
 
     private initMarbleHoverEvents(): void {
 
-        this.subscriptions.add(
-            fromEvent(this.timelineDiv, 'mousemove')
-                .subscribe((event: MouseEvent) => {
-                    const target = event.target as HTMLElement;
-                    const container = RxjsDraw.getInstance().findContainer(this.selector, true);
-                    if (target.matches('.rxjs-marble')) {
-                        const index = Array.from(target.parentNode.childNodes).indexOf(target);
-                        const data = this.marbles[index];
-                        let display = data.value;
-                        if (typeof data.value === 'object' && data.value) {
-                            if (data.value.constructor.name === 'Object') {
-                                try {
-                                    display = JSON.stringify(display, null, 2);
-                                } catch (err) {
-                                    display = data.value;
-                                }
+        fromEvent(this.timelineDiv, 'mousemove')
+            .pipe(
+                takeUntil(RxjsDraw.getInstance().clean$)
+            )
+            .subscribe((event: MouseEvent) => {
+                const target = event.target as HTMLElement;
+                const container = RxjsDraw.getInstance().findContainer(this.selector, true);
+                if (target.matches('.rxjs-marble')) {
+                    const index = Array.from(target.parentNode.childNodes).indexOf(target);
+                    const data = this.marbles[index];
+                    let display = data.value;
+                    if (typeof data.value === 'object' && data.value) {
+                        if (data.value.constructor.name === 'Object') {
+                            try {
+                                display = JSON.stringify(display, null, 2);
+                            } catch (err) {
+                                display = data.value;
                             }
                         }
-                        // Apply marble data to tooltip DOM
-                        container.toolTip.innerHTML = display;
-                        createElementAndAppend('div', container.toolTip, {
-                            innerHTML: 'Type: ' + typeof data.value
-                        });
-                        createElementAndAppend('div', container.toolTip, {
-                            innerHTML: 'Time: ' + (data.time - this.startTime) + 'ms'
-                        });
-                        container.toolTip.style.left = event.clientX + 'px';
-                        container.toolTip.style.top = event.clientY + 'px';
-                        container.toolTip.style.display = 'inline-block';
-                    } else {
-                        container.toolTip.style.display = 'none';
                     }
-                })
-        );
-
-        this.subscriptions.add(
-            fromEvent(this.timelineDiv, 'mouseleave')
-                .subscribe(() => {
-                    const container = RxjsDraw.getInstance().findContainer(this.selector, true);
+                    // Apply marble data to tooltip DOM
+                    container.toolTip.innerHTML = display;
+                    createElementAndAppend('div', container.toolTip, {
+                        innerHTML: 'Type: ' + typeof data.value
+                    });
+                    createElementAndAppend('div', container.toolTip, {
+                        innerHTML: 'Time: ' + (data.time - this.startTime) + 'ms'
+                    });
+                    container.toolTip.style.left = event.clientX + 'px';
+                    container.toolTip.style.top = event.clientY + 'px';
+                    container.toolTip.style.display = 'inline-block';
+                } else {
                     container.toolTip.style.display = 'none';
-                })
-        );
+                }
+            });
+
+        fromEvent(this.timelineDiv, 'mouseleave')
+            .pipe(
+                takeUntil(RxjsDraw.getInstance().clean$)
+            )
+            .subscribe(() => {
+                const container = RxjsDraw.getInstance().findContainer(this.selector, true);
+                container.toolTip.style.display = 'none';
+            });
     }
 
     public start(): void {
@@ -125,7 +126,6 @@ export class TimelineBox {
     }
 
     public stop(): void {
-        // this.subscriptions.unsubscribe();
         this.syncScrollSubsciption.unsubscribe();
         this.timerSubscription.unsubscribe();
         this.autoScrollSubscription.unsubscribe();

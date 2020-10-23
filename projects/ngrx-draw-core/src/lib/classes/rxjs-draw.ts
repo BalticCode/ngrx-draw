@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { findRootObservable } from '../utils/utils';
 import { DrawContainer } from './draw-container';
@@ -9,6 +9,7 @@ export class RxjsDraw {
     private static instance: RxjsDraw;
 
     private containers: DrawContainer[] = [];
+    private readonly cleanSubject = new Subject<void>();
 
     private constructor() { }
 
@@ -19,8 +20,13 @@ export class RxjsDraw {
         return RxjsDraw.instance;
     }
 
+    public get clean$(): Subject<void> {
+        return this.cleanSubject;
+    }
+
     public clean(): void {
         this.stop();
+        this.cleanSubject.next();
         this.containers.forEach(container => container.element.innerHTML = '');
         this.containers = [];
     }
