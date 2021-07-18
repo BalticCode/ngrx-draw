@@ -89,7 +89,6 @@
             "main": "projects/ngrx-draw-demo/src/main.ts",
             "polyfills": "projects/ngrx-draw-demo/src/polyfills.ts",
             "tsConfig": "projects/ngrx-draw-demo/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/ngrx-draw-demo/src/favicon.ico",
               "projects/ngrx-draw-demo/src/assets"
@@ -97,7 +96,13 @@
             "styles": [
               "projects/ngrx-draw-demo/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -127,7 +132,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
