@@ -12,10 +12,10 @@
     "contributors:check": "all-contributors check",
     "contributors:generate": "all-contributors generate",
     "build:prod": "npm run build:lib && npm run copy&& npm run copy:core && npm run build:docs",
-    "build:lib": "ng build ngrx-draw --prod && ng build ngrx-draw-core --prod",
+    "build:lib": "ng build ngrx-draw --configuration production && ng build ngrx-draw-core --configuration production",
     "copy": "copyfiles ./LICENSE ./README.md ./dist/ngrx-draw",
     "copy:core": "copyfiles ./LICENSE ./README.md ./dist/ngrx-draw-draw",
-    "build:docs": "ng build --prod --output-path docs --base-href /ngrx-draw/"
+    "build:docs": "ng build --configuration production --output-path docs --base-href /ngrx-draw/"
   },
   "private": true,
   "dependencies": {
